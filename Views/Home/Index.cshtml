@@ -1,0 +1,214 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer localizer
+@{
+    ViewData["Title"] = localizer["title"];
+}
+<h1>@localizer["label_billing_title"]</h1>
+<section class="row" id="user-finder">
+     <article class="col-10 form-group">
+         <label for="user-dni" class="form-label">@localizer["label_dni"]</label>
+         <input type="number" class="form-control" name="user-dni" id="user-dni"/>
+     </article>
+    <article class="col-2 d-flex justify-content-center align-items-center">
+        <button class="btn btn-success h-50 align-self-center" onclick="findClient()" id="find-dni-button">@localizer["label_search"]</button>
+     </article>
+</section>
+<div id="alert"></div>
+<div id="alert"></div>
+<section id="bill">
+<section class="row" id="user-info">
+    <div class="form-group">
+        <label>@localizer["label_name"]</label>
+        <input type="text" name="client-name" id="client-name" disabled class="form-control" />
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <article class="form-group">
+                <label label="client-addres" class="form-label">@localizer["label_address"]</label>
+                <input type="text" name="client-address" id="client-address" disabled class="form-control" />
+            </article>
+        </div>
+        <div class="col-6">
+            <article class="form-group">
+                <label label="client-phone" class="form-label">@localizer["label_phone"]</label>
+                <input type="tel" name="client-phone" id="client-phone" disabled class="form-control" />
+            </article>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <article class="form-group">
+                <label label="client-city" class="form-label">@localizer["label_city"]</label>
+                <input type="text" name="client-city" id="client-city" disabled class="form-control" />
+            </article>
+        </div>
+        <div class="col-6">
+            <article class="form-group">
+                <label label="client-state" class="form-label">@localizer["label_state"]</label>
+                <input type="text" name="client-state" id="client-state" disabled class="form-control" />
+            </article>
+        </div>
+    </div>
+
+</section>
+<section id="product-list" class="row">
+    <table class="table">
+        <thead>
+            <tr><th scope="col">@localizer["label_product_name"]</th><th scope="col">@localizer["label_product_amount"]</th><th scope="col">@localizer["label_product_price"]</th><th scope="col">@localizer["label_product_total"]</th><th>@localizer["label_actions"]</th></tr>
+        </thead>
+        <tbody id="table-body">
+            <tr id="product-row-0" class="product-row"><td><input class="form-control products" type="text" onkeyup="getProduct(event)" id="product-0"/></td><td><input class="form-control" type="number" placeholder="0" id="product-amount-0"  onchange="calculatePrice(event)"/></td><td><input type="number" placeholder="0" disabled class="form-control" id="product-price-0"/></td> <td><input type="number" placeholder="0" disabled class="form-control" id="product-total-0" /></td><td><button class="btn btn-outline-danger disabled" onclick="deleteRow(event)">&#10060;</button></td></tr>
+        </tbody>
+    </table>
+    <article class="row">
+        <div class="col-10 col-xs-2"></div>
+        <div class="col-2 col-xs-10"><p><span>Total:</span><strong id="total">0 </strong></p></div>
+    </article>
+    <article class="row">
+        <div class="col-8 col-xs-4"></div>
+            <div class="col-2 col-xs-4"><button class="btn btn-outline-success" onclick="billing()">@localizer["label_billing"]</button></div>
+        <div class="col-2 col-xs-4"><button class="btn btn-outline-success" onclick="printBill()">@localizer["label_print"]</button></div>
+    </article>
+</section>
+</section>
+@section scripts{
+    <script>
+
+        let listProducts = [];
+        let totalBill = 0;
+        /**
+         * This event is throw when the user has been click on find-dni-button button.
+         */
+        function findClient(){
+            let nitValue = document.getElementById("user-dni").value;
+            let alert = document.getElementById("alert");
+            if (nitValue == null || nitValue == undefined || nitValue == 0) {
+                alert.className = "alert alert-danger alert-dismissible fade show m-2";
+                alert.setAttribute("role","alert");
+                alert.innerHTML = "<span>@localizer["message_dni_empty"].</span><button type= 'button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'> </button>";
+                return 0;
+            }
+            let clientName = document.getElementById("client-name");
+            let clientAddress = document.getElementById("client-address");
+            let clientPhone = document.getElementById("client-phone");
+            let clientCity = document.getElementById("client-city");
+            let clientState = document.getElementById("client-state");
+            let data = { nit: nitValue };
+            fetch("/Clients/nit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify(data)
+            }).then(res => res.json()).then(json =>{
+                console.log(json);
+                clientName.value = json.user.businessName;
+                clientAddress.value = json.user.localAddress;
+                clientPhone.value = json.user.phone;
+                clientCity.value = json.user.cityName;
+                clientState.value = json.user.stateName;
+                clientName.dataset.userId = json.user.id;
+
+            });
+        }
+        function getProduct(event) {
+            let elem = event.target
+            let id = elem.id.split("-");
+            if (event.Key == 'Enter'|| event.code == 'Enter') {
+                let name = elem.value;
+                if (name != "") {
+                    fetch("/product/" + name).then(res => res.json()).then(json => {
+                        console.log(json);
+                        elem.value = json.user.productName;
+                        let itemPrice = document.getElementById("product-price-" + id[1]);
+                        itemPrice.value = Number.parseInt(json.user.price);
+                        itemPrice.setAttribute("data-discount", json.user.discount)
+                    });
+                }
+           }
+
+        }
+
+        function calculatePrice(event) {
+            let elem = event.target;
+            let id = elem.id.split("-")[2];
+            let next =Number.parseInt(id)+1
+            let totalProduct = document.getElementById("product-total-" + id);
+            let unitPrice = document.getElementById("product-price-"+id)
+            let discount = unitPrice.dataset.discount
+            if (unitPrice.value != "") {
+                if (discount != Number.parseInt(discount)) {
+                    totalProduct.value = Number.parseInt(elem.value) * (Number.parseInt(unitPrice.value) / (Number.parseInt(discount) / 100))
+                } else {
+                    totalProduct.value = Number.parseInt(elem.value) * Number.parseInt(unitPrice.value)
+                }
+                total();
+                let tableBody = document.getElementById("table-body");
+                let newRow = "<tr id='product-row-"+next+"' class='product-row'><td><input class='form-control products' type='text' onkeyup='getProduct(event)' id='product-"+next+"'/> </td><td><input class='form-control' type='number' placeholder='0' id='product-amount-"+next+"'  onchange='calculatePrice(event)'/ > </td><td><input type='number' placeholder='0' disabled class='form-control' id='product-price-"+next+"'/></td><td><input type='number' placeholder='0' disabled class='form-control' id='product-total-"+next+"'/> </td><td><button class='btn btn-outline-danger' onclick='deleteRow(event)'>&#10060;</button> </td></tr>";
+                tableBody.insertAdjacentHTML('beforeend', newRow)
+                document.getElementById("product-" + next).focus();
+            }
+        }
+        function deleteRow(event) {
+            let elem = event.target.parentNode.parentNode;
+            document.getElementById("table-body").removeChild(elem);
+        }
+
+        function total() {
+            let rows = document.getElementsByClassName("product-row");
+            let total = 0;
+            for (let i = 0; i <= rows.length; i++) {
+                let elem = rows[i];
+                if (typeof (elem) == 'object') {
+                    let id = elem.id.split("-")[2];
+                    let totalItem = document.getElementById("product-total-" + id).value;
+                    total += Number.parseInt(totalItem);
+                }
+                
+            }
+            document.getElementById("total").textContent = total;
+        }
+
+        function printBill() {
+
+            window.print();
+        }
+
+        function billing(){
+            let rows = document.getElementsByClassName("product-row");
+            for (let i = 0; i <= rows.length; i++) {
+                let elem = rows[i];
+                if (typeof (elem) == 'object') {
+                    let id = elem.id.split("-")[2];
+                    let totalItem = document.getElementById("product-total-" + id).value;
+                    let productName = document.getElementById("product-" + id).value;
+                    let productAmount = document.getElementById("product-amount-" + id).value;
+                    listProducts.push({"amount":totalItem,"productName": productName,"amount":productAmount,})
+                }
+
+            }
+            totalBill = Number.parseInt(document.getElementById("total").textContent)
+            let clientName = document.getElementById("client-name");
+            let data = {
+                "listObject" :listProducts,
+                "total": Number.parseInt(totalBill),
+                "user": Number.parseInt(clientName.dataset.userId)
+            }
+
+            fetch("/billing/new",
+                {
+                method:"POST",
+                headers: {
+                    "Content-Type":"application/json",
+                    "Accept":"application/json",
+                },
+                body: JSON.stringify(data),
+                }
+                ).then(res => res.json()).then(json => {
+                    printBill();
+                })
+        }
+    </script>
+}

@@ -1,0 +1,61 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = WebAppluisChaves
+build_property.RootNamespace = WebAppluisChaves
+build_property.ProjectDir = C:\Users\gato1\OneDrive\Escritorio\proyectos\apdi\example-code\proyectosTestCSharp\WebAppluisChaves\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\gato1\OneDrive\Escritorio\proyectos\apdi\example-code\proyectosTestCSharp\WebAppluisChaves
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/gato1/OneDrive/Escritorio/proyectos/apdi/example-code/proyectosTestCSharp/WebAppluisChaves/Views/Clients/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50c1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gato1/OneDrive/Escritorio/proyectos/apdi/example-code/proyectosTestCSharp/WebAppluisChaves/Views/Clients/NewUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50c1xOZXdVc2VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gato1/OneDrive/Escritorio/proyectos/apdi/example-code/proyectosTestCSharp/WebAppluisChaves/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gato1/OneDrive/Escritorio/proyectos/apdi/example-code/proyectosTestCSharp/WebAppluisChaves/Views/Partials/_nav.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFydGlhbHNcX25hdi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gato1/OneDrive/Escritorio/proyectos/apdi/example-code/proyectosTestCSharp/WebAppluisChaves/Views/Products/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gato1/OneDrive/Escritorio/proyectos/apdi/example-code/proyectosTestCSharp/WebAppluisChaves/Views/Products/newProduct.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdHNcbmV3UHJvZHVjdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gato1/OneDrive/Escritorio/proyectos/apdi/example-code/proyectosTestCSharp/WebAppluisChaves/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gato1/OneDrive/Escritorio/proyectos/apdi/example-code/proyectosTestCSharp/WebAppluisChaves/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gato1/OneDrive/Escritorio/proyectos/apdi/example-code/proyectosTestCSharp/WebAppluisChaves/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gato1/OneDrive/Escritorio/proyectos/apdi/example-code/proyectosTestCSharp/WebAppluisChaves/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gato1/OneDrive/Escritorio/proyectos/apdi/example-code/proyectosTestCSharp/WebAppluisChaves/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-8bjc8ay7ay

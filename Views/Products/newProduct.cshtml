@@ -1,0 +1,72 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IViewLocalizer localizer;
+@model WebAppluisChaves.Models.Product;
+@{
+    ViewData["Title"] = localizer["title"];
+}
+<h1>@localizer["title"]</h1>
+@if (Model != null)
+{
+    <section class="row">
+        <form method="post" asp-controller="Products" asp-action="editAction">
+            <input type="number" hidden value="@Model.Id" name="id"/>
+            <article class="form-control form-control-sm">
+                <label for="product-name" class="form-label">@localizer["label_name"]</label>
+                <input type="text" placeholder="@localizer["label_name"]" required class="form-control" id="product-name" name="product-name" value="@Model.ProductName"/>
+            </article>
+            <article class="form-control form-control-sm">
+                <label for="product-price" class="form-label">@localizer["label_price"]</label>
+                <input type="number" placeholder="0" required class="form-control" id="product-price" name="product-price" value="@Model.Price"/>
+            </article>
+            <article class="form-control form-control-sm">
+                <label for="product-amount" class="form-label">@localizer["label_amount"]</label>
+                <input type="number" placeholder="0" required class="form-control" id="product-amount" name="product-amount" value="@Model.Amount"/>
+            </article>
+            <article class="form-control form-control-sm">
+                <label for="product-discount" class="form-label">@localizer["label_discount"]</label>
+                <input type="number" placeholder="0" min="0" max="100" required class="form-control" id="product-discount" name="product-discount" value="@Model.Discount"/>
+            </article>
+            <section class="row">
+                <div class="col-6"></div>
+                <article class="col-3 d-flex flex-row justify-content-end my-3">
+                    <button type="submit" class="btn btn-success">@localizer["label_edit"]</button>
+                </article>
+                <article class="col-3 d-flex flex-row justify-content-end my-3">
+                    <a type="button" class="btn btn-danger" asp-controller="Clients" asp-action="Index">@localizer["label_cancel"]</a>
+                </article>
+            </section>
+        </form>
+    </section>
+}
+else
+{
+    <section class="row">
+        <form method="post" asp-controller="Products" asp-action="create">
+            <article class="form-control form-control-sm">
+                <label for="product-name" class="form-label">@localizer["label_name"]</label>
+                <input type="text" placeholder="@localizer["label_name"]" required class="form-control" id="product-name" name="product-name" />
+            </article>
+            <article class="form-control form-control-sm">
+                <label for="product-price" class="form-label">@localizer["label_price"]</label>
+                <input type="number" placeholder="0" required class="form-control" id="product-price" name="product-price" />
+            </article>
+            <article class="form-control form-control-sm">
+                <label for="product-amount" class="form-label">@localizer["label_amount"]</label>
+                <input type="number" placeholder="0" required class="form-control" id="product-amount" name="product-amount" />
+            </article>
+            <article class="form-control form-control-sm">
+                <label for="product-discount" class="form-label">@localizer["label_discount"]</label>
+                <input type="number" placeholder="0" min="0" max="100" required class="form-control" id="product-discount" name="product-discount" />
+            </article>
+            <section class="row">
+                <div class="col-6"></div>
+                <article class="col-3 d-flex flex-row justify-content-end my-3">
+                    <button type="submit" class="btn btn-success">@localizer["label_create"]</button>
+                </article>
+                <article class="col-3 d-flex flex-row justify-content-end my-3">
+                    <a type="button" class="btn btn-danger" asp-controller="Clients" asp-action="Index">@localizer["label_cancel"]</a>
+                </article>
+            </section>
+        </form>
+    </section>
+}

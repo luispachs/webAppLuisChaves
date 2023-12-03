@@ -1,0 +1,122 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+@model WebAppluisChaves.ViewModels.UserViewModel
+@{
+    ViewData["title"] = localizer["title"];
+}
+
+<h1>@localizer["title"]</h1>
+@if(Model.user != null)
+{
+    <form class="row" method="post" asp-controller="Clients" asp-action="editAction" >
+        <input type="number" value="@Model.user.Id" hidden id="id" name="id"/>
+        <article class="form-group form-group-xs">
+            <label for="user-nit" class="form-label">@localizer["label_nit"]</label>
+            <input type="number" class="form-control" placeholder="@localizer["label_nit"]" id="user-nit" name="user-nit"  value="@Model.user.Nit"/>
+        </article>
+        <article class="form-group form-group-xs">
+            <label for="user-name" class="form-label">@localizer["label_name"]</label>
+            <input type="text" class="form-control" placeholder="@localizer["label_name"]" id="user-name" name="user-name" value="@Model.user.BusinessName"/>
+        </article>
+        <article class="form-group form-group-xs">
+            <label for="user-address" class="form-label">@localizer["label_address"]</label>
+            <input type="text" class="form-control" placeholder="@localizer["label_address"]" id="user-address" name="user-address" value="@Model.user.LocalAddress" />
+        </article>
+        <article class="form-group form-group-xs">
+            <label for="user-phone" class="form-label">@localizer["label_phone"]</label>
+            <input type="tel" class="form-control" placeholder="@localizer["label_phone"]" id="user-phone" name="user-phone" value="@Model.user.Phone"/>
+        </article>
+        <section class="row">
+            <article class="col-6 col-xs-12">
+                <label for="state" class="form-label">@localizer["label_state"]</label>
+                <select type="text" class="form-control" placeholder="@localizer["label_state"]" name="state" id="state" onchange="getCities(event)">
+                    <option value=""></option>
+                    @foreach (var state in Model.states)
+                    {
+                        <option value="@state.Id">@state.StateName</option>
+                    }
+                </select>
+            </article>
+            <article class="col-6 col-xs-12">
+                <label for="city" class="form-label">@localizer["label_city"]</label>
+                <select type="text" class="form-control" placeholder="@localizer["label_city"]" name="city" id="city">
+                    <option value=""></option>
+                </select>
+            </article>
+        </section>
+        <section class="row">
+            <div class="col-6"></div>
+            <article class="col-3 d-flex flex-row justify-content-end my-3">
+                <button type="submit" class="btn btn-success">@localizer["label_edit"]</button>
+            </article>
+            <article class="col-3 d-flex flex-row justify-content-end my-3">
+                <a type="button" class="btn btn-danger" asp-controller="Clients" asp-action="Index">@localizer["label_cancel"]</a>
+            </article>
+        </section>
+    </form>
+}else{
+<form class="row" method="post" asp-controller="Clients" asp-action="create">
+    <article class="form-group form-group-xs">
+        <label for="user-nit" class="form-label">@localizer["label_nit"]</label>
+        <input type="number" class="form-control" placeholder="@localizer["label_nit"]" id="user-nit" name="user-nit" />
+    </article>
+    <article class="form-group form-group-xs">
+        <label for="user-name" class="form-label">@localizer["label_name"]</label>
+        <input type="text" class="form-control" placeholder="@localizer["label_name"]" id="user-name" name="user-name" />
+    </article>
+    <article class="form-group form-group-xs">
+        <label for="user-address" class="form-label">@localizer["label_address"]</label>
+        <input type="text" class="form-control" placeholder="@localizer["label_address"]" id="user-address" name="user-address" />
+    </article>
+    <article class="form-group form-group-xs">
+        <label for="user-phone" class="form-label">@localizer["label_phone"]</label>
+        <input type="tel" class="form-control" placeholder="@localizer["label_phone"]" id="user-phone" name="user-phone" />
+    </article>
+    <section class="row">
+       <article class="col-6 col-xs-12">
+            <label for="state" class="form-label">@localizer["label_state"]</label>
+            <select type="text" class="form-control" placeholder="@localizer["label_state"]" name="state" id="state" onchange="getCities(event)">
+                <option value=""></option>
+                @foreach (var state in Model.states)
+                {
+                    <option value="@state.Id">@state.StateName</option>
+                }
+            </select>
+       </article>
+       <article class="col-6 col-xs-12">
+            <label for="city" class="form-label">@localizer["label_city"]</label>
+            <select type="text" class="form-control" placeholder="@localizer["label_city"]" name="city" id="city">
+                <option value=""></option>
+            </select>
+       </article>
+    </section>
+    <section class="row">
+        <div class="col-6"></div>
+        <article class="col-3 d-flex flex-row justify-content-end my-3">
+            <button type="submit" class="btn btn-success">@localizer["label_create"]</button>
+        </article>
+        <article class="col-3 d-flex flex-row justify-content-end my-3">
+            <a type="button" class="btn btn-danger" asp-controller="Clients" asp-action="Index">@localizer["label_cancel"]</a>
+        </article>
+    </section>
+</form>
+}
+@section scripts{
+    <script>
+        async function getCities(event) {
+            let stateId=event.target.value;
+            let body = { id: stateId };
+            let response = await fetch("/cities/"+stateId);
+            let json = await response.json();
+            let parentNode = document.getElementById('city');
+            parentNode.innerHTML = "<option value=''></option>"
+            json.forEach(elem => {
+                let opt = document.createElement('option');
+                opt.value = elem.id;
+                opt.text = elem.cityName;
+                parentNode.appendChild(opt);
+
+            })
+        }
+    </script>
+}

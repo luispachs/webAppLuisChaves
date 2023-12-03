@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@{
+    ViewData["title"] = localizer["title"];
+    var data = (dynamic) Model;
+}
+<section class="row">
+    <article class="col-12 col-xs-12 d-flex">
+        <div class="col-8  col-xs-8"><h1>@localizer["title"]</h1></div>
+        <div class="col-4  col-xs-4"><a class="btn btn-success" asp-controller="Clients" asp-action="newUser">@localizer["label_create_new_user"]</a></div>
+        <div></div>
+    </article>
+</section>
+<section id="users-list" class="row">
+    <table class="table">
+        <thead>
+            <tr><th scope="col">@localizer["label_id"]</th><th scope="col">@localizer["label_name"]</th><th scope="col">@localizer["label_nit"]</th><th scope="col">@localizer["label_address"]</th><th scope="col">@localizer["label_phone"]</th><th scope="col">@localizer["label_city"]</th><th scope="col">@localizer["label_state"]</th><th>@localizer["label_actions"]</th></tr>
+        </thead>
+        <tbody>
+            @foreach(var user in Model)
+            {
+                <tr><td>@user.Id</td><td>@user.BusinessName</td><td>@user.Nit</td><td>@user.LocalAddress</td><td>@user.Phone</td><td>@user.CityName</td><td>@user.StateName</td><td><section><a asp-controller="Clients" asp-action="edit"  asp-route-id="@user.Id" class="btn btn-outline-warning mx-2">@localizer["label_edit"]</a><a asp-controller="Clients" asp-action="delete" asp-route-id="@user.Id" class="btn btn-outline-danger mx-2">@localizer["label_delete"]</a></section></td></tr>
+            }
+        </tbody>
+    </table>
+</section>
