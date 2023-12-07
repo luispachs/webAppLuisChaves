@@ -21,7 +21,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\**">
-      <CustomToolNamespace>CustomerOrder</CustomToolNamespace>
+      <CustomToolNamespace>WebAppluisChaves</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
 
