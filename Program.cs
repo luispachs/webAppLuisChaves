@@ -46,7 +46,7 @@ app.UseRequestLocalization(new RequestLocalizationOptions
 {
     ApplyCurrentCultureToResponseHeaders = true
 });
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
