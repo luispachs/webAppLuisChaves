@@ -19,5 +19,10 @@
     </PackageReference>
     <PackageReference Include="System.Text.Json" Version="6.0.9" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\**">
+      <CustomToolNamespace>CustomerOrder</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
 
 </Project>
