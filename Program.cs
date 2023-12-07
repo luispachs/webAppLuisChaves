@@ -16,7 +16,7 @@ builder.Services.AddDbContext<BillingContext>(options =>
 });
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
-    var supportedCultures = new[] { "en-US", "es-CO" };
+    var supportedCultures = new[] { "en", "es" };
     options.SetDefaultCulture(supportedCultures[1])
         .AddSupportedCultures(supportedCultures)
         .AddSupportedUICultures(supportedCultures);
@@ -42,6 +42,11 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 app.UseStatusCodePages();
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    ApplyCurrentCultureToResponseHeaders = true
+});
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
