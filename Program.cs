@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 using WebAppluisChaves.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,10 @@ builder.Services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat
 builder.Services.AddDbContext<BillingContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("sqlServerConnections"));
+});
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.KnownProxies.Add(IPAddress.Parse("34.224.85.48"));
 });
 var app = builder.Build();
 app.UseForwardedHeaders(new ForwardedHeadersOptions
