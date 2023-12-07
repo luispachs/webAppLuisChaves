@@ -17,6 +17,7 @@ builder.Services.AddDbContext<BillingContext>(options =>
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
     options.KnownProxies.Add(IPAddress.Parse("34.224.85.48"));
+    options.KnownProxies.Add(IPAddress.Parse("179.13.202.123"));
 });
 var app = builder.Build();
 
