@@ -14,6 +14,13 @@ builder.Services.AddDbContext<BillingContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("sqlServerConnections"));
 });
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var supportedCultures = new[] { "en-US", "es-CO" };
+    options.SetDefaultCulture(supportedCultures[1])
+        .AddSupportedCultures(supportedCultures)
+        .AddSupportedUICultures(supportedCultures);
+});
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
     options.KnownProxies.Add(IPAddress.Parse("34.224.85.48"));
