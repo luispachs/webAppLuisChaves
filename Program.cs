@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using WebAppluisChaves.Models;
@@ -13,12 +14,17 @@ builder.Services.AddDbContext<BillingContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("sqlServerConnections"));
 });
 var app = builder.Build();
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHttpsRedirection();
     app.UseHsts();
 }
 app.UseStatusCodePages();
