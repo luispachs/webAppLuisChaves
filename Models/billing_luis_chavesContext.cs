@@ -52,7 +52,7 @@ namespace WebAppluisChaves.Models
                     .WithMany(p => p.Bills)
                     .HasForeignKey(d => d.IdUser)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__bills__id_user__5812160E");
+                    .HasConstraintName("FK__bills__id_user__30F848ED");
             });
 
             modelBuilder.Entity<City>(entity =>
@@ -72,7 +72,7 @@ namespace WebAppluisChaves.Models
                     .WithMany(p => p.Cities)
                     .HasForeignKey(d => d.StateId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__cities__state_id__4BAC3F29");
+                    .HasConstraintName("FK__cities__state_id__31EC6D26");
             });
 
             modelBuilder.Entity<Product>(entity =>
@@ -117,7 +117,7 @@ namespace WebAppluisChaves.Models
             {
                 entity.ToTable("users");
 
-                entity.HasIndex(e => e.Nit, "UQ__users__DF97D0E4A742DA56")
+                entity.HasIndex(e => e.Nit, "UQ__users__DF97D0E4EEC4B9E9")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("id");
@@ -145,7 +145,7 @@ namespace WebAppluisChaves.Models
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.City)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__users__city__4F7CD00D");
+                    .HasConstraintName("FK__users__city__32E0915F");
             });
 
             OnModelCreatingPartial(modelBuilder);
