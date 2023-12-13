@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddLocalization(options=> options.ResourcesPath="Resources");
 builder.Services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
-builder.Services.AddDbContext<BillingContext>(options =>
+builder.Services.AddDbContext<billing_luis_chavesContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("sqlServerConnections"));
 });

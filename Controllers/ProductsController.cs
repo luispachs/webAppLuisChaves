@@ -18,12 +18,12 @@ namespace WebAppluisChaves.Controllers
             return View(products);
         }
         [HttpGet]
-        public async Task<IActionResult> newProduct()
+        public  IActionResult newProduct()
         {
             return View("newProduct");
         }
         [HttpPost]
-        public async Task<IActionResult> create()
+        public IActionResult create()
         {
             var form = Request.Form;
             if(form == null)
@@ -110,7 +110,7 @@ namespace WebAppluisChaves.Controllers
         [Route("/product/{name}")]
         public IActionResult getClient(string name)
         {
-            Product product = context.Products.FirstOrDefault(p=> p.ProductName.Contains(name)); 
+            Product? product = context.Products.FirstOrDefault(p=> p.ProductName.Contains(name)); 
             Dictionary<string, object> data = new Dictionary<string, object>();
             data.Add("user",product);
             return this.Json(data);
