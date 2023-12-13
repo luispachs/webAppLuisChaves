@@ -9,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddLocalization(options=> options.ResourcesPath="Resources");
-builder.Services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
+builder.Services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+    .AddDataAnnotationsLocalization(); ;
 builder.Services.AddDbContext<billing_luis_chavesContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("sqlServerConnections"));
@@ -17,6 +18,7 @@ builder.Services.AddDbContext<billing_luis_chavesContext>(options =>
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
     var supportedCultures = new[] { "en", "es" };
+    options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("es");
     options.SetDefaultCulture(supportedCultures[1])
         .AddSupportedCultures(supportedCultures)
         .AddSupportedUICultures(supportedCultures);
