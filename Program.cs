@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System.Net;
 using WebAppluisChaves.Models;
 
@@ -44,10 +45,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 app.UseStatusCodePages();
-app.UseRequestLocalization(new RequestLocalizationOptions
-{
-    ApplyCurrentCultureToResponseHeaders = true
-});
+app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
