@@ -8,8 +8,8 @@ namespace WebAppluisChaves.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly BillingContext context;
-        public ProductsController(BillingContext context) {
+        private readonly billing_luis_chavesContext context;
+        public ProductsController(billing_luis_chavesContext context) {
             this.context = context;
         }
         public IActionResult Index()

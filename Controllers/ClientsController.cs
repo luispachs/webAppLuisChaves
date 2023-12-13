@@ -3,13 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using WebAppluisChaves.Models;
 using WebAppluisChaves.ViewModels;
 using System.Text.Json;
+using WebAppluisChaves.Models;
 
 namespace WebAppluisChaves.Controllers
 {
     public class ClientsController : Controller
     {
-        private readonly BillingContext context;
-        public ClientsController( BillingContext context)
+        private readonly billing_luis_chavesContext context;
+        public ClientsController( billing_luis_chavesContext context)
         {
             this.context = context;
         }
